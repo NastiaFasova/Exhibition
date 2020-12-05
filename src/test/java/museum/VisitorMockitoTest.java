@@ -8,8 +8,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VisitorMockitoTest {
@@ -29,5 +29,7 @@ public class VisitorMockitoTest {
         when(myMock.getVisitors()).thenReturn(expected.subList(0, expected.size() - 1));
         when(myMock.getName()).thenReturn("Exhibition");
         Assert.assertEquals(expected.size(), visitor6.visit(myMock).size());
+        verify(myMock).getVisitors();
+        verify(myMock).getName();
     }
 }

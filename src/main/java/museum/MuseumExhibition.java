@@ -6,8 +6,8 @@ import lombok.ToString;
 import museum.exceptions.NotEnoughExhibitsException;
 
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -20,6 +20,15 @@ public class MuseumExhibition extends EntertainmentPlace implements Educatable {
 
     public MuseumExhibition(String name, String address, LocalDate time, List<Visitor> visitors) {
         super(name, address, time, visitors);
+    }
+
+    public MuseumExhibition(String name, String address, LocalDate time, List<Visitor> visitors,
+                            List<Exhibit> exhibits) {
+        super(name, address, time, visitors);
+        if (exhibits.size() < MIN_NUMBER) {
+            throw new NotEnoughExhibitsException("Not enough exhibits for opening the museum exhibition !!!");
+        }
+        this.exhibits = exhibits;
     }
 
     public MuseumExhibition(String name, String address, LocalDate time,
@@ -45,6 +54,51 @@ public class MuseumExhibition extends EntertainmentPlace implements Educatable {
     public MuseumExhibition educate() {
         System.out.println("This museum exhibition educates people");
         return this;
+    }
+
+    public double getSumOfExhibits() {
+        return getExhibits()
+                .stream()
+                .map(Exhibit::getPrice)
+                .reduce(0D, Double::sum);
+    }
+
+    public Exhibit getTheMostExpensiveExhibit() {
+        return getExhibits()
+                .stream()
+                .max(Comparator.comparing(Exhibit::getPrice))
+                .orElseThrow(RuntimeException::new);
+    }
+
+    public Exhibit getTheCheapestExhibit() {
+        return getExhibits()
+                .stream()
+                .min(Comparator.comparing(Exhibit::getPrice))
+                .orElseThrow(RuntimeException::new);
+    }
+
+    public Double getTheAveragePriceOfExhibits() {
+        return getExhibits()
+                .stream()
+                .mapToDouble(Exhibit::getPrice)
+                .average()
+                .orElseThrow(RuntimeException::new);
+    }
+
+    public Map<String, List<Exhibit>> getOldExhibits(int age) {
+        Map<String, List<Exhibit>> map = new HashMap<>();
+        List<Exhibit> oldExhibits = getExhibits()
+                .stream()
+                .filter(e -> e.getAge() >= age)
+                .collect(Collectors.toList());
+        map.put("Подходит", oldExhibits);
+        List<Exhibit> notEnoughOldExhibits = getExhibits()
+                .stream()
+                .filter(e -> !oldExhibits.contains(e))
+                .collect(Collectors.toList());
+        map.put("Не подходит", notEnoughOldExhibits);
+        map.forEach((k, v) -> System.out.println(k + ": " + v));
+        return map;
     }
 
     //nested class

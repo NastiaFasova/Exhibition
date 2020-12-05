@@ -1,6 +1,7 @@
 package museum;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 //Асоциация между Visitor и Exhibition
@@ -24,5 +25,13 @@ public class Visitor extends Human {
     @Override
     public String greet() {
         return super.greet() + ". I like visiting museums";
+    }
+
+    public Exhibit getTheOldestExhibitVisitorSaw(List<MuseumExhibition> museumExhibitions) {
+        return museumExhibitions
+                .stream()
+                .flatMap(m -> m.getExhibits().stream())
+                .max(Comparator.comparing(Exhibit::getAge))
+                .orElseThrow(RuntimeException::new);
     }
 }
