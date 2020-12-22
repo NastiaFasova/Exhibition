@@ -9,10 +9,6 @@ import java.util.List;
 
 public class VisitorTest {
     private MuseumExhibition museumExhibition;
-    private Exhibit firstExhibit;
-    private Exhibit secondExhibit;
-    private Exhibit thirdExhibit;
-    private Exhibit fourthExhibit;
     private Exhibit fifthExhibit;
     private Visitor visitor1;
     private Visitor visitor2;
@@ -28,10 +24,10 @@ public class VisitorTest {
         visitor4 = new Visitor("Maryna", "Ivanova", 27);
         visitor5 = new Visitor("Halyna", "Ivanova", 17);
 
-        firstExhibit = new Exhibit("Gun", 45, 1559);
-        secondExhibit = new Exhibit("Sculpture", 27, 5000);
-        thirdExhibit = new Exhibit("Picture", 133, 5600);
-        fourthExhibit = new Exhibit("Photo", 120, 1600);
+        Exhibit firstExhibit = new Exhibit("Gun", 45, 1559);
+        Exhibit secondExhibit = new Exhibit("Sculpture", 27, 5000);
+        Exhibit thirdExhibit = new Exhibit("Picture", 133, 5600);
+        Exhibit fourthExhibit = new Exhibit("Photo", 120, 1600);
         fifthExhibit = new Exhibit("Map", 310, 3400);
         museumExhibition = new MuseumExhibition("Exhibition", "Shevchenka st.",
                 LocalDate.of(2019, 12, 17),

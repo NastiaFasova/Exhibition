@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
@@ -15,12 +16,12 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MuseumMockitoTest {
+public class MuseumIT {
     // для того, чтобы каждый раз не создавать Visitor и Exhibit и их особыми параметрами
     // используем Mockito
-    @Mock
+    @Spy
     private Visitor myVisitor;
-    @Mock
+    @Spy
     private Exhibit myExhibit;
     @Mock
     private MuseumExhibition.Manager myManager;

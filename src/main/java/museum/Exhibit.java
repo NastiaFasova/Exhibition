@@ -29,4 +29,6 @@ public class Exhibit {
         this.name = name;
     }
 
+    public Exhibit() {
+    }
 }

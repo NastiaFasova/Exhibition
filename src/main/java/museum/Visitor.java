@@ -11,6 +11,9 @@ public class Visitor extends Human {
         super(name, surname, age);
     }
 
+    public Visitor() {
+    }
+
     public <T extends EntertainmentPlace> List<Visitor> visit(T place) {
         Visitor visitor = new Visitor(super.getName(), super.getSurname(),
                 super.getAge());
